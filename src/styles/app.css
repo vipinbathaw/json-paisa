@@ -9,6 +9,14 @@ header {
   margin-top: 0.5rem;
 }
 
-.container {
+.box {
   padding: 1rem;
+}
+
+table {
+  width: 100%;
+}
+
+th {
+  text-align: left;
 }
