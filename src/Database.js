@@ -31,10 +31,10 @@ export const updateLedger = (ledger) => {
   saveData(data);
 };
 
-export const addToLedger = (item, value, type) => {
+export const addToLedger = (item, value, type, date, tags) => {
   let ledger = getLedger();
 
-  ledger.push({ item, value, type });
+  ledger.unshift({ item, value, type, date, tags });
   updateLedger(ledger);
 };
 

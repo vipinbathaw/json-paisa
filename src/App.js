@@ -1,6 +1,5 @@
+import Home from './components/Home';
 import './styles/app.css';
-import AddEntry from './components/AddEntry';
-import Entries from './components/Entries';
 
 const App = () => {
   return (
@@ -8,8 +7,12 @@ const App = () => {
       <header>
         <h1>Fin</h1>
       </header>
-      <AddEntry />
-      <Entries />
+      <Home />
+      <footer>
+        <p>
+          Made with <span>&hearts;</span>
+        </p>
+      </footer>
     </div>
   );
 };

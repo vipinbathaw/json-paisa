@@ -9,14 +9,81 @@ header {
   margin-top: 0.5rem;
 }
 
+.row-col {
+  flex-direction: column;
+}
+
 .box {
   padding: 1rem;
 }
 
-table {
+input,
+select,
+button {
   width: 100%;
+  height: 32px;
+  padding: 0 0.5rem;
 }
 
-th {
-  text-align: left;
+button {
+  text-transform: capitalize;
+}
+
+footer p {
+  width: 100%;
+  text-align: center;
+}
+
+footer p span {
+  color: red;
+}
+
+.tag {
+  background-color: #dedede;
+  padding: 4px 12px;
+  border-radius: 8px;
+}
+.tag + .tag {
+  margin-left: 0.5rem;
+}
+
+.entry-row {
+  padding: 0.5rem;
+  border-radius: 8px;
+}
+
+.entry-row.debit {
+  background-color: #ffebee;
+}
+.entry-row.credit {
+  background-color: #e8f5e9;
+}
+
+.entry-row .data {
+  display: flex;
+}
+
+.entry-row .data > div {
+  width: 33.33%;
+}
+
+.entry-row .tags {
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+}
+.entry-row.credit .tags {
+  border-top: 1px solid #c8e6c9;
+}
+.entry-row.debit .tags {
+  border-top: 1px solid #ffcdd2;
+}
+.entry-row.credit .tags span {
+  background-color: #c8e6c9;
+}
+.entry-row.debit .tags span {
+  background-color: #ffcdd2;
+}
+
+.entry-row + .entry-row {
+  margin-top: 0.5rem;
 }
