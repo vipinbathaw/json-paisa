@@ -1,10 +1,14 @@
 export const formatDate = (date) => {
+  if (!date) {
+    date = new Date();
+  }
+
   const options = {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   };
-  return new Date(date).toLocaleDateString('en-IN', options);
+  return date.toLocaleDateString('en-IN', options);
 };
 
 export const formatDateForInput = (date) => {
@@ -12,6 +16,13 @@ export const formatDateForInput = (date) => {
     date = new Date();
   }
   return new Date(date).toISOString().substring(0, 10);
+};
+
+export const formatDateFull = (date) => {
+  if (!date) {
+    date = new Date();
+  }
+  return date.toISOString().split('T').join('_').split('.')[0];
 };
 
 export const removeItemByIndex = (arr, index) => [

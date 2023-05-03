@@ -1,16 +1,24 @@
 header {
   padding: 0 1rem;
+  display: flex;
+  align-items: center;
 }
 
 .row {
   display: flex;
+  width: 100%;
 }
 .row + .row {
   margin-top: 0.5rem;
 }
-
 .row-col {
   flex-direction: column;
+}
+.row-center {
+  align-items: center;
+}
+.right {
+  margin-left: auto;
 }
 
 .box {
@@ -25,7 +33,11 @@ button {
   padding: 0 0.5rem;
 }
 
+input[type='file'] {
+  line-height: 32px;
+}
 button {
+  width: initial;
   text-transform: capitalize;
 }
 
@@ -86,4 +98,28 @@ footer p span {
 
 .entry-row + .entry-row {
   margin-top: 0.5rem;
+}
+
+.config-opt img {
+  height: 32px;
+}
+
+.config {
+  margin: 1rem;
+  border: 1px solid #dedede;
+  border-radius: 8px;
+}
+.config > .row {
+  padding: 1rem;
+}
+.config > .row + .row {
+  border-top: 1px solid #dedede;
+}
+.config input {
+  padding: 0;
+}
+.config h3 {
+  font-size: 1rem;
+  font-weight: 400;
+  margin: 0;
 }
