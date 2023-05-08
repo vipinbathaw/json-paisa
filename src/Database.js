@@ -1,8 +1,10 @@
 import { UPLOAD_MODE } from './configs';
+import { generateSHA256Hash, generateSHA3Hash } from './utils';
 
 const db = window.localStorage;
 
-const schema = {
+const PASS_KEY = 'chaabi';
+const SCHEMA = {
   ledger: [],
 };
 
@@ -10,8 +12,8 @@ const getData = () => {
   const data = db.getItem('data');
 
   if (!data) {
-    db.setItem('data', JSON.stringify(schema));
-    return schema;
+    db.setItem('data', JSON.stringify(SCHEMA));
+    return SCHEMA;
   }
 
   return JSON.parse(data);
@@ -85,6 +87,17 @@ export const importData = (data, mode = UPLOAD_MODE.REPLACE) => {
   }
 };
 
+export const getPassword = () => {
+  return db.getItem(PASS_KEY);
+};
+
+export const setPassword = async (password) => {
+  const hash = await generateSHA256Hash(password);
+  db.setItem(PASS_KEY, hash);
+
+  return hash;
+};
+
 let instance;
 
 export const getLocalDBInstance = () => {
@@ -94,6 +107,8 @@ export const getLocalDBInstance = () => {
       addToLedger,
       exportData,
       importData,
+      getPassword,
+      setPassword,
     };
   }
   return instance;

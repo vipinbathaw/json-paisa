@@ -4,6 +4,10 @@ header {
   align-items: center;
 }
 
+p {
+  margin: 0;
+}
+
 h2 {
   font-size: 1.25rem;
 }
@@ -66,6 +70,7 @@ button {
 footer p {
   width: 100%;
   text-align: center;
+  margin: 1rem 0;
 }
 
 footer p span {
@@ -150,4 +155,8 @@ footer p span {
   font-size: 1rem;
   font-weight: 400;
   margin: 0;
+}
+
+.password form {
+  margin: 2rem 0;
 }

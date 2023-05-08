@@ -2,6 +2,7 @@
 export const PAGES = {
   HOME: 1,
   CONFIG: 2,
+  PASSWORD: 3,
 };
 
 export const UPLOAD_MODE = {
