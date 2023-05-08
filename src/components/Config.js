@@ -77,7 +77,7 @@ const Config = () => {
           <button onClick={uploadData}>upload</button>
         </div>
       </div>
-      <div className="row row-center">
+      <div className="row row-v-center">
         <h3>Download Data</h3>
         <button onClick={downloadData} className="right">
           download

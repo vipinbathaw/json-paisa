@@ -1,7 +1,11 @@
 header {
-  padding: 0 1rem;
+  padding: 1rem;
   display: flex;
   align-items: center;
+}
+
+h2 {
+  font-size: 1.25rem;
 }
 
 .row {
@@ -16,13 +20,25 @@ header {
 }
 .row-center {
   align-items: center;
+  justify-content: center;
 }
+.row-v-center {
+  align-items: center;
+}
+.row-h-center {
+  justify-content: center;
+}
+
+.col {
+  flex: 1;
+}
+
 .right {
   margin-left: auto;
 }
 
 .box {
-  padding: 1rem;
+  padding: 0.5rem 1rem;
 }
 
 input,
@@ -31,6 +47,12 @@ button {
   width: 100%;
   height: 32px;
   padding: 0 0.5rem;
+}
+input:focus,
+select:focus,
+button:focus {
+  border: 1px solid #666;
+  outline: 1px solid #666;
 }
 
 input[type='file'] {
@@ -53,7 +75,10 @@ footer p span {
 .tag {
   background-color: #dedede;
   padding: 4px 12px;
-  border-radius: 8px;
+  border-radius: 12px;
+  color: #555;
+  font-size: 0.875rem;
+  cursor: pointer;
 }
 .tag + .tag {
   margin-left: 0.5rem;
@@ -74,19 +99,18 @@ footer p span {
 .entry-row .data {
   display: flex;
 }
-
 .entry-row .data > div {
   width: 33.33%;
 }
-
 .entry-row .tags {
   margin-top: 0.5rem;
   padding-top: 0.5rem;
+  justify-content: end;
 }
-.entry-row.credit .tags {
+.entry-row.credit > .row + .row {
   border-top: 1px solid #c8e6c9;
 }
-.entry-row.debit .tags {
+.entry-row.debit > .row + .row {
   border-top: 1px solid #ffcdd2;
 }
 .entry-row.credit .tags span {
@@ -95,7 +119,11 @@ footer p span {
 .entry-row.debit .tags span {
   background-color: #ffcdd2;
 }
-
+.entry-row .date {
+  font-size: 0.875rem;
+  color: #777;
+  padding-top: 0.5rem;
+}
 .entry-row + .entry-row {
   margin-top: 0.5rem;
 }

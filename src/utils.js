@@ -8,7 +8,7 @@ export const formatDate = (date) => {
     month: 'long',
     day: 'numeric',
   };
-  return date.toLocaleDateString('en-IN', options);
+  return new Date(date).toLocaleDateString('en-IN', options);
 };
 
 export const formatDateForInput = (date) => {
@@ -22,7 +22,7 @@ export const formatDateFull = (date) => {
   if (!date) {
     date = new Date();
   }
-  return date.toISOString().split('T').join('_').split('.')[0];
+  return new Date(date).toISOString().split('T').join('_').split('.')[0];
 };
 
 export const removeItemByIndex = (arr, index) => [

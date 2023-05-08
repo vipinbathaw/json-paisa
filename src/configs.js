@@ -8,3 +8,8 @@ export const UPLOAD_MODE = {
   REPLACE: 1,
   UPDATE: 2,
 };
+
+export const TX_TYPE = {
+  CREDIT: 1,
+  DEBIT: 2,
+};

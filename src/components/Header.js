@@ -1,3 +1,4 @@
+import paisaIcon from '../images/paisa.svg';
 import configIcon from '../images/config.svg';
 import closeIcon from '../images/close.svg';
 import { PAGES } from '../configs';
@@ -5,7 +6,7 @@ import { PAGES } from '../configs';
 const Header = (props) => {
   return (
     <header>
-      <h1>Fin</h1>
+      <img src={paisaIcon} alt="Paisa" />
       <div className="config-opt right">
         {props.pageconf.page === PAGES.HOME ? (
           <img

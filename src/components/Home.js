@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import AddEntry from './AddEntry';
 import Entries from './Entries';
+import Overview from './Overview';
 
 const Home = () => {
   const [r, setR] = useState(Math.random());
@@ -12,6 +13,7 @@ const Home = () => {
   return (
     <div className="home" key={r}>
       <AddEntry onNewEntry={onAddEntry} />
+      <Overview />
       <Entries />
     </div>
   );

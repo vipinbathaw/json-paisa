@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { getLocalDBInstance } from '../Database';
 import { formatDateForInput, removeItemByIndex } from '../utils';
+import { TX_TYPE } from '../configs';
 
 const db = getLocalDBInstance();
 
@@ -51,8 +52,8 @@ const AddEntry = (props) => {
         </div>
         <div className="row">
           <select value={type} onChange={(e) => setType(e.target.value)}>
-            <option value="debit">Debit</option>
-            <option value="credit">Credit</option>
+            <option value={TX_TYPE.DEBIT}>Debit</option>
+            <option value={TX_TYPE.CREDIT}>Credit</option>
           </select>
         </div>
         <div className="row">

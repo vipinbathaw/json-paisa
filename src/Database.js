@@ -63,7 +63,7 @@ export const importData = (data, mode = UPLOAD_MODE.REPLACE) => {
       !o.type ||
       typeof o.item !== 'string' ||
       typeof o.value !== 'number' ||
-      typeof o.type !== 'string' ||
+      typeof o.type !== 'number' ||
       (o.tags && !Array.isArray(o.tags))
     ) {
       throw Error(`Invalid ledger entry at ${i}`);
