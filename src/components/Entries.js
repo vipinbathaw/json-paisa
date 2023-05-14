@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { getLocalDBInstance } from '../Database';
 import { formatDate } from '../utils';
+import { TX_TYPE_REVERSE } from '../configs';
 
 const db = getLocalDBInstance();
 
 const Entries = () => {
   const [ledger, setLedger] = useState([]);
+  const [collapsed, setCollapsed] = useState(false);
 
   useEffect(() => {
     setLedger(db.getLedger());
@@ -13,12 +15,18 @@ const Entries = () => {
 
   return (
     <div className="box">
-      <div className="row">
+      <div className="row row-v-center">
         <h2>Entries</h2>
+        <div
+          className="collapser right"
+          onClick={() => setCollapsed(!collapsed)}
+        >
+          {collapsed ? <span>+</span> : <span>-</span>}
+        </div>
       </div>
-      <div className="row row-col">
+      <div className={collapsed ? 'gone' : 'row row-col'}>
         {ledger.map((row, index) => (
-          <div key={index} className={`entry-row ${row.type}`}>
+          <div key={index} className={`entry-row ${TX_TYPE_REVERSE[row.type]}`}>
             <div className="row data">
               <div>{row.item}</div>
               <div className="right" style={{ textAlign: 'right' }}>

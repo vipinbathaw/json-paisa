@@ -10,6 +10,7 @@ p {
 
 h2 {
   font-size: 1.25rem;
+  margin: 0.5rem 0;
 }
 
 .row {
@@ -31,6 +32,10 @@ h2 {
 }
 .row-h-center {
   justify-content: center;
+}
+
+.gone {
+  display: none;
 }
 
 .col {
@@ -159,4 +164,39 @@ footer p span {
 
 .password form {
   margin: 2rem 0;
+}
+
+.overview .content > .row {
+  padding: 1rem;
+  border: 1px solid #ccc;
+}
+.overview .content > .row:first-child {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+.overview .content > .row:last-child {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+.overview .content > .row + .row {
+  margin-top: 0;
+  border-top: 0;
+}
+.overview .row .label {
+  font-size: 0.875rem;
+  color: #444;
+}
+.overview .row .value {
+  font-size: 1.125rem;
+}
+
+.collapser {
+  border: 2px solid #737373;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #222;
+  cursor: pointer;
 }

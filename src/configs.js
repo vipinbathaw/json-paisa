@@ -14,3 +14,8 @@ export const TX_TYPE = {
   CREDIT: 1,
   DEBIT: 2,
 };
+
+export const TX_TYPE_REVERSE = {
+  1: 'credit',
+  2: 'debit',
+};

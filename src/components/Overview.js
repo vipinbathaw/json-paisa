@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getLocalDBInstance } from '../Database';
 import { TX_TYPE } from '../configs';
+import { formatCurrency } from '../utils';
 
 const db = getLocalDBInstance();
 
@@ -8,6 +9,8 @@ const Overview = () => {
   const [ledger, setLedger] = useState([]);
   const [totalCredit, setTotalCredit] = useState(0);
   const [totalDebit, setTotalDebit] = useState(0);
+  const [outstandingBalance, setOutstandingBalance] = useState(0);
+  const [collapsed, setCollapsed] = useState(false);
 
   const calculate = () => {
     let credit = 0;
@@ -24,6 +27,7 @@ const Overview = () => {
 
     setTotalCredit(credit);
     setTotalDebit(debit);
+    setOutstandingBalance(credit - debit);
   };
 
   useEffect(() => {
@@ -37,17 +41,37 @@ const Overview = () => {
   return (
     <div className="box">
       <div className="overview">
-        <div className="row">
+        <div className="row row-v-center">
           <h2>Overview</h2>
-        </div>
-        <div className="row">
-          <div className="col">
-            <div className="row row-h-center">Total Credit</div>
-            <div className="row row-h-center">{totalCredit}</div>
+          <div
+            className="collapser right"
+            onClick={() => setCollapsed(!collapsed)}
+          >
+            {collapsed ? <span>+</span> : <span>-</span>}
           </div>
-          <div className="col">
-            <div className="row row-h-center">Total Debit</div>
-            <div className="row row-h-center">{totalDebit}</div>
+        </div>
+        <div className={collapsed ? 'gone' : 'content'}>
+          <div className="row">
+            <div className="col">
+              <div className="row row-h-center label">Outstanding Balance</div>
+              <div className="row row-h-center value">
+                {formatCurrency(outstandingBalance)}
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              <div className="row row-h-center label">Total Credit</div>
+              <div className="row row-h-center value">
+                {formatCurrency(totalCredit)}
+              </div>
+            </div>
+            <div className="col">
+              <div className="row row-h-center label">Total Debit</div>
+              <div className="row row-h-center value">
+                {formatCurrency(totalDebit)}
+              </div>
+            </div>
           </div>
         </div>
       </div>

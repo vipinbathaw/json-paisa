@@ -25,6 +25,10 @@ export const formatDateFull = (date) => {
   return new Date(date).toISOString().split('T').join('_').split('.')[0];
 };
 
+export const formatCurrency = (number) => {
+  return '₹' + Number(number).toFixed(2);
+};
+
 export const removeItemByIndex = (arr, index) => [
   ...arr.slice(0, index),
   ...arr.slice(index + 1),

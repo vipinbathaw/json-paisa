@@ -8,15 +8,16 @@ const db = getLocalDBInstance();
 const AddEntry = (props) => {
   const [item, setItem] = useState('');
   const [value, setValue] = useState('');
-  const [type, setType] = useState('debit');
+  const [type, setType] = useState(TX_TYPE.DEBIT);
   const [date, setDate] = useState(formatDateForInput());
   const [tags, setTags] = useState([]);
   const [tag, setTag] = useState('');
+  const [collapsed, setCollapsed] = useState(true);
 
   const handleForm = (e) => {
     e.preventDefault();
 
-    db.addToLedger(item, value, type, date, tags);
+    db.addToLedger(item, value, parseInt(type), date, tags);
     db.getLedger();
 
     if (props.onNewEntry) {
@@ -30,10 +31,16 @@ const AddEntry = (props) => {
 
   return (
     <div className="box">
-      <div className="row">
+      <div className="row row-v-center">
         <h2>Add Entry</h2>
+        <div
+          className="collapser right"
+          onClick={() => setCollapsed(!collapsed)}
+        >
+          {collapsed ? <span>+</span> : <span>-</span>}
+        </div>
       </div>
-      <form onSubmit={handleForm}>
+      <form onSubmit={handleForm} className={collapsed ? 'gone' : ''}>
         <div className="row">
           <input
             value={item}
