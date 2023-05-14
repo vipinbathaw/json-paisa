@@ -32,7 +32,7 @@ const App = () => {
     if (!pass) {
       setPage(PAGES.PASSWORD);
     }
-  }, []);
+  }, [pass]);
 
   return (
     <div className="app">

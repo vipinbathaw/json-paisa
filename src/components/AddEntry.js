@@ -74,7 +74,7 @@ const AddEntry = (props) => {
             value={tag}
             onChange={(e) => setTag(e.target.value)}
             onKeyDown={(e) => {
-              if (e.key == 'Enter') {
+              if (e.key === 'Enter') {
                 e.preventDefault();
                 setTags([...tags, tag]);
                 setTag('');
