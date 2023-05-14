@@ -28,6 +28,10 @@ const App = () => {
     }
   };
 
+  const onReset = () => {
+    setPass(null);
+  };
+
   useEffect(() => {
     if (!pass) {
       setPage(PAGES.PASSWORD);
@@ -38,7 +42,7 @@ const App = () => {
     <div className="app">
       <Header pageconf={{ page, setPage }} />
       {page === PAGES.HOME && <Home />}
-      {page === PAGES.CONFIG && <Config />}
+      {page === PAGES.CONFIG && <Config reset={onReset} />}
       {page === PAGES.PASSWORD && <Password initApp={initApp} />}
       <footer>
         <p>

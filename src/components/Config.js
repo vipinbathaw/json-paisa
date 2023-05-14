@@ -5,7 +5,7 @@ import { formatDateFull } from '../utils';
 
 const db = getLocalDBInstance();
 
-const Config = () => {
+const Config = (props) => {
   const [file, setFile] = useState('');
   const [uploadMode, setUploadMode] = useState(UPLOAD_MODE.REPLACE);
   const [beginningBalance, setBeginningBalance] = useState(0);
@@ -60,6 +60,13 @@ const Config = () => {
     db.updateBeginningBalance(beginningBalance);
   };
 
+  const handleReset = () => {
+    if (window.confirm('Are you sure you want to reset?')) {
+      db.reset();
+      props.reset();
+    }
+  };
+
   useEffect(() => {
     setBeginningBalance(db.getData().beginningBalance);
   }, []);
@@ -106,6 +113,19 @@ const Config = () => {
         </div>
         <div className="row">
           <button onClick={updateBeginningBalance}>update</button>
+        </div>
+      </div>
+      <div className="row row-col">
+        <div className="row">
+          <p>
+            This will delete the database and reset the app. Make sure you have
+            exported your data before performing this.
+          </p>
+        </div>
+        <div className="row">
+          <button onClick={handleReset} style={{ width: '100%' }}>
+            reset
+          </button>
         </div>
       </div>
     </div>

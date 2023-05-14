@@ -127,6 +127,11 @@ const updateBeginningBalance = (balance) => {
   saveData(data);
 };
 
+const reset = () => {
+  db.setItem('data', JSON.stringify(SCHEMA));
+  db.removeItem(PASS_KEY);
+};
+
 let instance;
 
 export const getLocalDBInstance = () => {
@@ -139,6 +144,7 @@ export const getLocalDBInstance = () => {
       getPassword,
       setPassword,
       updateBeginningBalance,
+      reset,
     };
   }
   return instance;
