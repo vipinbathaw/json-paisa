@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { UPLOAD_MODE } from '../configs';
 import { getLocalDBInstance } from '../Database';
 import { formatDateFull } from '../utils';
@@ -8,6 +8,7 @@ const db = getLocalDBInstance();
 const Config = () => {
   const [file, setFile] = useState('');
   const [uploadMode, setUploadMode] = useState(UPLOAD_MODE.REPLACE);
+  const [beginningBalance, setBeginningBalance] = useState(0);
 
   const downloadData = () => {
     const data = db.exportData();
@@ -55,6 +56,14 @@ const Config = () => {
     reader.readAsText(file);
   };
 
+  const updateBeginningBalance = () => {
+    db.updateBeginningBalance(beginningBalance);
+  };
+
+  useEffect(() => {
+    setBeginningBalance(db.getData().beginningBalance);
+  }, []);
+
   return (
     <div className="config">
       <div className="row row-col">
@@ -82,6 +91,22 @@ const Config = () => {
         <button onClick={downloadData} className="right">
           download
         </button>
+      </div>
+      <div className="row row-col">
+        <div className="row">
+          <h3>Starting Balance</h3>
+        </div>
+        <div className="row">
+          <input
+            type="number"
+            value={beginningBalance}
+            onChange={(e) => setBeginningBalance(e.target.value)}
+            placeholder="Beginning balance"
+          />
+        </div>
+        <div className="row">
+          <button onClick={updateBeginningBalance}>update</button>
+        </div>
       </div>
     </div>
   );

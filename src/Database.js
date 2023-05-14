@@ -1,11 +1,24 @@
-import { UPLOAD_MODE } from './configs';
-import { generateSHA256Hash, generateSHA3Hash } from './utils';
+import { TX_TYPE, UPLOAD_MODE } from './configs';
+import { generateSHA256Hash } from './utils';
 
 const db = window.localStorage;
 
 const PASS_KEY = 'chaabi';
 const SCHEMA = {
   ledger: [],
+  beginningBalance: 0,
+  totalCredit: 0,
+  totalDebit: 0,
+  outstandingBalance: 0,
+};
+
+const saveData = (data) => {
+  db.setItem('data', JSON.stringify(data));
+};
+
+const getLedger = () => {
+  const data = getData();
+  return data.ledger;
 };
 
 const getData = () => {
@@ -19,35 +32,41 @@ const getData = () => {
   return JSON.parse(data);
 };
 
-const saveData = (data) => {
-  db.setItem('data', JSON.stringify(data));
-};
-
-export const getLedger = () => {
-  const data = getData();
-  return data && data.ledger ? data.ledger : [];
-};
-
-export const updateLedger = (ledger) => {
+const updateLedger = (ledger) => {
   let data = getData();
+  let credit = 0;
+  let debit = 0;
+
+  for (let i = 0; i < ledger.length; i++) {
+    let entry = ledger[i];
+    if (entry.type === TX_TYPE.CREDIT) {
+      credit += parseFloat(entry.value);
+    } else if (entry.type === TX_TYPE.DEBIT) {
+      debit += parseFloat(entry.value);
+    }
+  }
 
   data.ledger = ledger;
+  data.totalCredit = credit;
+  data.totalDebit = debit;
+  data.outstandingBalance = data.beginningBalance + (credit - debit);
+
   saveData(data);
 };
 
-export const addToLedger = (item, value, type, date, tags) => {
+const addToLedger = (item, value, type, date, tags) => {
   let ledger = getLedger();
 
   ledger.unshift({ item, value, type, date, tags });
   updateLedger(ledger);
 };
 
-export const exportData = () => {
+const exportData = () => {
   const data = JSON.stringify(getData());
   return new Blob([data], { type: 'application/json' });
 };
 
-export const importData = (data, mode = UPLOAD_MODE.REPLACE) => {
+const importData = (data, mode = UPLOAD_MODE.REPLACE) => {
   if (typeof data !== 'object' || Array.isArray(data)) {
     throw Error('Invalid format, data should be an object');
   }
@@ -87,15 +106,25 @@ export const importData = (data, mode = UPLOAD_MODE.REPLACE) => {
   }
 };
 
-export const getPassword = () => {
+const getPassword = () => {
   return db.getItem(PASS_KEY);
 };
 
-export const setPassword = async (password) => {
+const setPassword = async (password) => {
   const hash = await generateSHA256Hash(password);
   db.setItem(PASS_KEY, hash);
 
   return hash;
+};
+
+const updateBeginningBalance = (balance) => {
+  const data = getData();
+
+  data.beginningBalance = parseFloat(balance);
+  data.outstandingBalance =
+    data.beginningBalance + (data.totalCredit - data.totalDebit);
+
+  saveData(data);
 };
 
 let instance;
@@ -103,12 +132,13 @@ let instance;
 export const getLocalDBInstance = () => {
   if (!instance) {
     instance = {
-      getLedger,
+      getData,
       addToLedger,
       exportData,
       importData,
       getPassword,
       setPassword,
+      updateBeginningBalance,
     };
   }
   return instance;

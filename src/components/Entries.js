@@ -10,7 +10,7 @@ const Entries = () => {
   const [collapsed, setCollapsed] = useState(false);
 
   useEffect(() => {
-    setLedger(db.getLedger());
+    setLedger(db.getData().ledger);
   }, []);
 
   return (

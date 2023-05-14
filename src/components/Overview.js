@@ -1,42 +1,24 @@
 import { useEffect, useState } from 'react';
 import { getLocalDBInstance } from '../Database';
-import { TX_TYPE } from '../configs';
 import { formatCurrency } from '../utils';
 
 const db = getLocalDBInstance();
 
 const Overview = () => {
-  const [ledger, setLedger] = useState([]);
-  const [totalCredit, setTotalCredit] = useState(0);
-  const [totalDebit, setTotalDebit] = useState(0);
-  const [outstandingBalance, setOutstandingBalance] = useState(0);
+  const [data, setData] = useState({});
   const [collapsed, setCollapsed] = useState(false);
 
-  const calculate = () => {
-    let credit = 0;
-    let debit = 0;
-
-    for (let i = 0; i < ledger.length; i++) {
-      let entry = ledger[i];
-      if (entry.type === TX_TYPE.CREDIT) {
-        credit += parseFloat(entry.value);
-      } else if (entry.type === TX_TYPE.DEBIT) {
-        debit += parseFloat(entry.value);
-      }
+  const showVal = (val) => {
+    if (val) {
+      return formatCurrency(val);
     }
 
-    setTotalCredit(credit);
-    setTotalDebit(debit);
-    setOutstandingBalance(credit - debit);
+    return formatCurrency(0);
   };
 
   useEffect(() => {
-    setLedger(db.getLedger());
+    setData(db.getData());
   }, []);
-
-  useEffect(() => {
-    calculate();
-  }, [ledger]);
 
   return (
     <div className="box">
@@ -55,7 +37,7 @@ const Overview = () => {
             <div className="col">
               <div className="row row-h-center label">Outstanding Balance</div>
               <div className="row row-h-center value">
-                {formatCurrency(outstandingBalance)}
+                {showVal(data.outstandingBalance)}
               </div>
             </div>
           </div>
@@ -63,13 +45,13 @@ const Overview = () => {
             <div className="col">
               <div className="row row-h-center label">Total Credit</div>
               <div className="row row-h-center value">
-                {formatCurrency(totalCredit)}
+                {showVal(data.totalCredit)}
               </div>
             </div>
             <div className="col">
               <div className="row row-h-center label">Total Debit</div>
               <div className="row row-h-center value">
-                {formatCurrency(totalDebit)}
+                {showVal(data.totalDebit)}
               </div>
             </div>
           </div>

@@ -13,9 +13,11 @@ const App = () => {
   const [pass, setPass] = useState(db.getPassword());
   const [page, setPage] = useState(PAGES.HOME);
 
-  const setPassword = async (password) => {
+  const initApp = async (password, beginningBalance = 0) => {
     try {
+      db.updateBeginningBalance(beginningBalance);
       await db.setPassword(password);
+
       setPass(password);
       setPage(PAGES.HOME);
     } catch (error) {
@@ -37,7 +39,7 @@ const App = () => {
       <Header pageconf={{ page, setPage }} />
       {page === PAGES.HOME && <Home />}
       {page === PAGES.CONFIG && <Config />}
-      {page === PAGES.PASSWORD && <Password setPassword={setPassword} />}
+      {page === PAGES.PASSWORD && <Password initApp={initApp} />}
       <footer>
         <p>
           Made with <span>&hearts;</span>

@@ -18,7 +18,6 @@ const AddEntry = (props) => {
     e.preventDefault();
 
     db.addToLedger(item, value, parseInt(type), date, tags);
-    db.getLedger();
 
     if (props.onNewEntry) {
       props.onNewEntry();
