@@ -10,19 +10,24 @@ const Config = (props) => {
   const [uploadMode, setUploadMode] = useState(UPLOAD_MODE.REPLACE);
   const [beginningBalance, setBeginningBalance] = useState(0);
 
-  const downloadData = () => {
-    const data = db.exportData();
-    const url = URL.createObjectURL(data);
+  const downloadData = async () => {
+    try {
+      const data = await db.exportData();
+      const url = URL.createObjectURL(data);
 
-    const downloadLink = document.createElement('a');
-    downloadLink.href = url;
-    downloadLink.download = `json-paisa-${formatDateFull()}`;
+      const downloadLink = document.createElement('a');
+      downloadLink.href = url;
+      downloadLink.download = `json-paisa-${formatDateFull()}`;
 
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
 
-    URL.revokeObjectURL(url);
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error(error);
+      alert('failed');
+    }
   };
 
   const uploadData = () => {
@@ -41,10 +46,10 @@ const Config = (props) => {
     }
 
     const reader = new FileReader();
-    reader.onload = () => {
+    reader.onload = async () => {
       try {
         const data = JSON.parse(reader.result);
-        db.importData(data);
+        await db.importData(data);
 
         alert('Data imported successfully');
       } catch (error) {

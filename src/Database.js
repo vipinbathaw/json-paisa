@@ -1,5 +1,5 @@
 import { TX_TYPE, UPLOAD_MODE } from './configs';
-import { generateSHA256Hash } from './utils';
+import { decryptData, encryptData, generateSHA256Hash } from './utils';
 
 const db = window.localStorage;
 
@@ -61,12 +61,33 @@ const addToLedger = (item, value, type, date, tags) => {
   updateLedger(ledger);
 };
 
-const exportData = () => {
+const exportData = async () => {
+  const key = getPassword();
   const data = JSON.stringify(getData());
-  return new Blob([data], { type: 'application/json' });
+
+  const encryptedData = await encryptData(data, key);
+  return new Blob([JSON.stringify(encryptedData)], {
+    type: 'application/json',
+  });
 };
 
-const importData = (data, mode = UPLOAD_MODE.REPLACE) => {
+const importData = async (importedData, mode = UPLOAD_MODE.REPLACE) => {
+  if (
+    typeof importedData !== 'object' ||
+    !importedData.encryptedText ||
+    !importedData.ivText
+  ) {
+    throw Error('Invalid format, not the encrypted data');
+  }
+
+  const key = getPassword();
+  const decryptedText = await decryptData(
+    importedData.encryptedText,
+    importedData.ivText,
+    key
+  );
+  const data = JSON.parse(decryptedText);
+
   if (typeof data !== 'object' || Array.isArray(data)) {
     throw Error('Invalid format, data should be an object');
   }
