@@ -13,6 +13,11 @@ h2 {
   margin: 0.5rem 0;
 }
 
+img {
+  min-height: 16px;
+  min-width: 16px;
+}
+
 .row {
   display: flex;
   width: 100%;
@@ -137,6 +142,11 @@ footer p span {
 .entry-row + .entry-row {
   margin-top: 0.5rem;
 }
+.entry-row svg {
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+}
 
 .config-opt img {
   height: 32px;
@@ -188,8 +198,8 @@ footer p span {
 
 .collapser {
   border: 2px solid #737373;
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
