@@ -1,11 +1,7 @@
-import { useEffect, useState } from 'react';
-import { getLocalDBInstance } from '../Database';
+import { useState } from 'react';
 import { formatCurrency } from '../utils';
 
-const db = getLocalDBInstance();
-
-const Overview = () => {
-  const [data, setData] = useState({});
+const Overview = (props) => {
   const [collapsed, setCollapsed] = useState(false);
 
   const showVal = (val) => {
@@ -16,10 +12,7 @@ const Overview = () => {
     return formatCurrency(0);
   };
 
-  useEffect(() => {
-    setData(db.getData());
-  }, []);
-
+  const data = props.data;
   return (
     <div className="box">
       <div className="overview">

@@ -1,18 +1,12 @@
-import { useState, useEffect } from 'react';
-import { getLocalDBInstance } from '../Database';
+import { useState } from 'react';
 import { formatDate } from '../utils';
 import { TX_TYPE_REVERSE } from '../configs';
 import { ReactComponent as EditIcon } from '../images/edit.svg';
 
-const db = getLocalDBInstance();
-
 const Entries = (props) => {
-  const [ledger, setLedger] = useState([]);
   const [collapsed, setCollapsed] = useState(false);
 
-  useEffect(() => {
-    setLedger(db.getData().ledger);
-  }, []);
+  const ledger = props.ledger;
 
   return (
     <div className="box">
