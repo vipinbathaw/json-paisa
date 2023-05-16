@@ -5,8 +5,40 @@ import { ReactComponent as EditIcon } from '../images/edit.svg';
 
 const Entries = (props) => {
   const [collapsed, setCollapsed] = useState(false);
+  const [tags, setTags] = useState([]);
 
-  const ledger = props.ledger;
+  const tagSelect = (tag) => {
+    let newTags = [];
+    let index = -1;
+
+    for (let i = 0; i < tags.length; i++) {
+      if (tags[i] === tag) {
+        index = i;
+        continue;
+      }
+      newTags.push(tags[i]);
+    }
+
+    if (index === -1) {
+      newTags.push(tag);
+    }
+
+    setTags(newTags);
+  };
+
+  let ledger = [];
+  for (let i = 0; i < props.ledger.length; i++) {
+    let entry = props.ledger[i];
+
+    if (!tags.length) {
+      ledger.push(entry);
+      continue;
+    }
+
+    if (tags.every((tag) => entry.tags.includes(tag))) {
+      ledger.push(entry);
+    }
+  }
 
   return (
     <div className="box">
@@ -19,6 +51,21 @@ const Entries = (props) => {
           {collapsed ? <span>+</span> : <span>-</span>}
         </div>
       </div>
+      {tags.length > 0 && (
+        <div className="row">
+          {tags.map((tag, index) => (
+            <span
+              key={index}
+              className="tag"
+              onClick={() => {
+                tagSelect(tag);
+              }}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
       <div className={collapsed ? 'gone' : 'row row-col'}>
         {ledger.map((row, index) => (
           <div key={index} className={`entry-row ${TX_TYPE_REVERSE[row.type]}`}>
@@ -31,7 +78,13 @@ const Entries = (props) => {
             {row.tags && row.tags.length && (
               <div className="row tags">
                 {row.tags.map((tag, index) => (
-                  <span className="tag" key={index}>
+                  <span
+                    className="tag"
+                    key={index}
+                    onClick={() => {
+                      tagSelect(tag);
+                    }}
+                  >
                     {tag}
                   </span>
                 ))}

@@ -22,6 +22,8 @@ const AddEntry = (props) => {
     if (props.onNewEntry) {
       props.onNewEntry();
     }
+
+    setCollapsed(true);
   };
 
   const removeTag = (index) => {

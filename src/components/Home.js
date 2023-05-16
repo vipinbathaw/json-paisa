@@ -7,11 +7,10 @@ import { getLocalDBInstance } from '../Database';
 const db = getLocalDBInstance();
 
 const Home = (props) => {
-  const [r, setR] = useState(Math.random());
   const [data, setData] = useState({ ledger: [] });
 
   const onAddEntry = () => {
-    setR(Math.random());
+    setData(db.getData());
   };
 
   useEffect(() => {
@@ -19,7 +18,7 @@ const Home = (props) => {
   }, []);
 
   return (
-    <div className="home" key={r}>
+    <div className="home">
       <AddEntry onNewEntry={onAddEntry} />
       <Overview data={data} />
       <Entries edit={props.edit} ledger={data.ledger} />
