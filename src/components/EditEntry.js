@@ -39,7 +39,7 @@ const EditEntry = (props) => {
     setType(entry.type);
     setDate(entry.date);
     setTags(entry.tags);
-  }, []);
+  }, [props.index]);
 
   return (
     <div className="box">
