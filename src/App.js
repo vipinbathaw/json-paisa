@@ -7,6 +7,7 @@ import Config from './components/Config';
 import { getLocalDBInstance } from './Database';
 import Password from './components/Password';
 import EditEntry from './components/EditEntry';
+import Reports from './components/Reports';
 
 const db = getLocalDBInstance();
 
@@ -57,6 +58,7 @@ const App = () => {
       {page === PAGES.CONFIG && <Config reset={onReset} />}
       {page === PAGES.PASSWORD && <Password initApp={initApp} />}
       {page === PAGES.EDIT && <EditEntry index={editIndex} done={onEditDone} />}
+      {page === PAGES.REPORTS && <Reports />}
       <footer>
         <p>
           Made with <span>&hearts;</span>

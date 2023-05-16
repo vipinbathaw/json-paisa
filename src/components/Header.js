@@ -9,7 +9,9 @@ const Header = (props) => {
   let showConfigIcon = false;
   let showCloseIcon = false;
 
-  if (![PAGES.PASSWORD, PAGES.CONFIG].includes(props.pageconf.page)) {
+  if (
+    ![PAGES.PASSWORD, PAGES.CONFIG, PAGES.REPORTS].includes(props.pageconf.page)
+  ) {
     showReportsIcon = true;
   }
 
@@ -23,10 +25,14 @@ const Header = (props) => {
 
   return (
     <header>
-      <img src={paisaIcon} alt="Paisa" />
+      <img
+        src={paisaIcon}
+        onClick={() => props.pageconf.setPage(PAGES.HOME)}
+        alt="Paisa"
+      />
       <div className="right row row-v-center">
         <div className={showReportsIcon ? 'menu-item' : 'gone'}>
-          <ReportIcon />
+          <ReportIcon onClick={() => props.pageconf.setPage(PAGES.REPORTS)} />
         </div>
         <div className={showConfigIcon ? 'menu-item' : 'gone'}>
           <ConfigIcon onClick={() => props.pageconf.setPage(PAGES.CONFIG)} />
