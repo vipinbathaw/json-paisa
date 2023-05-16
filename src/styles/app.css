@@ -208,3 +208,15 @@ footer p span {
   flex-wrap: wrap;
   gap: 0.5rem;
 }
+
+header .row {
+  width: initial;
+}
+header .row svg {
+  height: 32px;
+  width: 32px;
+  fill: #000;
+}
+header .row .menu-item + .menu-item {
+  margin-left: 0.5rem;
+}

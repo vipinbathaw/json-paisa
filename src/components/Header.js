@@ -1,29 +1,40 @@
 import paisaIcon from '../images/paisa.svg';
-import configIcon from '../images/config.svg';
-import closeIcon from '../images/close.svg';
+import { ReactComponent as ConfigIcon } from '../images/config.svg';
+import { ReactComponent as CloseIcon } from '../images/close.svg';
+import { ReactComponent as ReportIcon } from '../images/reports.svg';
 import { PAGES } from '../configs';
 
 const Header = (props) => {
+  let showReportsIcon = false;
+  let showConfigIcon = false;
+  let showCloseIcon = false;
+
+  if (![PAGES.PASSWORD, PAGES.CONFIG].includes(props.pageconf.page)) {
+    showReportsIcon = true;
+  }
+
+  if (![PAGES.PASSWORD, PAGES.CONFIG].includes(props.pageconf.page)) {
+    showConfigIcon = true;
+  }
+
+  if (props.pageconf.page === PAGES.CONFIG) {
+    showCloseIcon = true;
+  }
+
   return (
     <header>
       <img src={paisaIcon} alt="Paisa" />
-      {props.pageconf.page !== PAGES.PASSWORD && (
-        <div className="config-opt right">
-          {props.pageconf.page === PAGES.HOME ? (
-            <img
-              alt="config"
-              src={configIcon}
-              onClick={() => props.pageconf.setPage(PAGES.CONFIG)}
-            />
-          ) : (
-            <img
-              alt="close"
-              src={closeIcon}
-              onClick={() => props.pageconf.setPage(PAGES.HOME)}
-            />
-          )}
+      <div className="right row row-v-center">
+        <div className={showReportsIcon ? 'menu-item' : 'gone'}>
+          <ReportIcon />
         </div>
-      )}
+        <div className={showConfigIcon ? 'menu-item' : 'gone'}>
+          <ConfigIcon onClick={() => props.pageconf.setPage(PAGES.CONFIG)} />
+        </div>
+        <div className={showCloseIcon ? 'menu-item' : 'gone'}>
+          <CloseIcon onClick={() => props.pageconf.setPage(PAGES.HOME)} />
+        </div>
+      </div>
     </header>
   );
 };
