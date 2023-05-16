@@ -61,6 +61,13 @@ const addToLedger = (item, value, type, date, tags) => {
   updateLedger(ledger);
 };
 
+const editLedger = (data, index) => {
+  let ledger = getLedger();
+  ledger[index] = data;
+
+  updateLedger(ledger);
+};
+
 const exportData = async () => {
   const key = getPassword();
   const data = JSON.stringify(getData());
@@ -160,6 +167,7 @@ export const getLocalDBInstance = () => {
     instance = {
       getData,
       addToLedger,
+      editLedger,
       exportData,
       importData,
       getPassword,

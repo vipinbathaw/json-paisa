@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react';
 import { getLocalDBInstance } from '../Database';
 import { formatDate } from '../utils';
 import { TX_TYPE_REVERSE } from '../configs';
+import { ReactComponent as EditIcon } from '../images/edit.svg';
 
 const db = getLocalDBInstance();
 
-const Entries = () => {
+const Entries = (props) => {
   const [ledger, setLedger] = useState([]);
   const [collapsed, setCollapsed] = useState(false);
 
@@ -42,7 +43,12 @@ const Entries = () => {
                 ))}
               </div>
             )}
-            <div className="row date">{formatDate(row.date)}</div>
+            <div className="row date">
+              <span>{formatDate(row.date)}</span>
+              <span className="right">
+                <EditIcon onClick={() => props.edit(index)} />
+              </span>
+            </div>
           </div>
         ))}
       </div>

@@ -3,7 +3,7 @@ import AddEntry from './AddEntry';
 import Entries from './Entries';
 import Overview from './Overview';
 
-const Home = () => {
+const Home = (props) => {
   const [r, setR] = useState(Math.random());
 
   const onAddEntry = () => {
@@ -14,7 +14,7 @@ const Home = () => {
     <div className="home" key={r}>
       <AddEntry onNewEntry={onAddEntry} />
       <Overview />
-      <Entries />
+      <Entries edit={props.edit} />
     </div>
   );
 };
