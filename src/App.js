@@ -42,7 +42,7 @@ const App = () => {
   const onEditDone = () => {
     setEditIndex(0);
     setPage(PAGES.HOME);
-  }
+  };
 
   useEffect(() => {
     if (!pass) {

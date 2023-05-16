@@ -86,7 +86,7 @@ const AddEntry = (props) => {
             placeholder="Tags"
           />
         </div>
-        <div className="row">
+        <div className="row tags">
           {tags.map((tag, index) => (
             <span
               className="tag"
