@@ -79,7 +79,7 @@ const EditEntry = (props) => {
         <div className="row">
           <input
             value={tag}
-            onChange={(e) => setTag(e.target.value)}
+            onChange={(e) => setTag(e.target.value.toLowerCase())}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 e.preventDefault();
