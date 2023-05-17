@@ -6,6 +6,7 @@ const db = window.localStorage;
 const PASS_KEY = 'chaabi';
 const SCHEMA = {
   ledger: [],
+  tags: [],
   beginningBalance: 0,
   totalCredit: 0,
   totalDebit: 0,
@@ -22,20 +23,28 @@ const getLedger = () => {
 };
 
 const getData = () => {
-  const data = db.getItem('data');
+  let data = db.getItem('data');
 
   if (!data) {
     db.setItem('data', JSON.stringify(SCHEMA));
     return SCHEMA;
+  } else {
+    data = JSON.parse(data);
   }
 
-  return JSON.parse(data);
+  if (!data.tags) {
+    data.tags = [];
+    db.setItem('data', JSON.stringify(data));
+  }
+
+  return data;
 };
 
 const updateLedger = (ledger) => {
   let data = getData();
   let credit = 0;
   let debit = 0;
+  let tags = [];
 
   for (let i = 0; i < ledger.length; i++) {
     let entry = ledger[i];
@@ -44,12 +53,14 @@ const updateLedger = (ledger) => {
     } else if (entry.type === TX_TYPE.DEBIT) {
       debit += parseFloat(entry.value);
     }
+    tags.push(...entry.tags);
   }
 
   data.ledger = ledger;
   data.totalCredit = credit;
   data.totalDebit = debit;
   data.outstandingBalance = data.beginningBalance + (credit - debit);
+  data.tags = [...new Set(tags)];
 
   saveData(data);
 };
