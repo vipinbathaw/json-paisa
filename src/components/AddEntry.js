@@ -24,11 +24,27 @@ const AddEntry = (props) => {
     }
 
     setCollapsed(true);
+    setItem('');
+    setValue('');
+    setType(TX_TYPE.DEBIT);
+    setDate(formatDateForInput());
+    setTag('');
+    setTags([]);
   };
 
   const removeTag = (index) => {
     setTags(removeItemByIndex(tags, index));
   };
+
+  const addTag = (tag) => {
+    setTags([...tags, tag]);
+    setTag('');
+  };
+
+  let suggestionTags = [];
+  if (tag.length > 1) {
+    suggestionTags = props.tags.filter((x) => x.includes(tag));
+  }
 
   return (
     <div className="box">
@@ -71,15 +87,24 @@ const AddEntry = (props) => {
             type="date"
           />
         </div>
-        <div className="row">
+        <div className="row" style={{ position: 'relative' }}>
+          <div
+            className={suggestionTags.length > 0 ? 'tag-suggestions' : 'gone'}
+          >
+            {suggestionTags.length > 0 &&
+              suggestionTags.map((stag, i) => (
+                <p onClick={() => addTag(stag)} key={i}>
+                  {stag}
+                </p>
+              ))}
+          </div>
           <input
             value={tag}
-            onChange={(e) => setTag(e.target.value)}
+            onChange={(e) => setTag(e.target.value.toLowerCase())}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 e.preventDefault();
-                setTags([...tags, tag]);
-                setTag('');
+                addTag(tag);
               }
             }}
             type="text"
