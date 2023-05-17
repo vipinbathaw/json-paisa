@@ -49,7 +49,7 @@ const Config = (props) => {
     reader.onload = async () => {
       try {
         const data = JSON.parse(reader.result);
-        await db.importData(data);
+        await db.importData(data, uploadMode);
 
         alert('Data imported successfully');
       } catch (error) {
@@ -88,7 +88,7 @@ const Config = (props) => {
         <div className="row">
           <select
             value={uploadMode}
-            onChange={(e) => setUploadMode(e.target.value)}
+            onChange={(e) => setUploadMode(parseInt(e.target.value))}
           >
             <option value={UPLOAD_MODE.REPLACE}>replace</option>
             <option value={UPLOAD_MODE.UPDATE}>update</option>
