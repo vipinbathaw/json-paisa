@@ -19,7 +19,7 @@ const Home = (props) => {
 
   return (
     <div className="home">
-      <AddEntry onNewEntry={onAddEntry} />
+      <AddEntry onNewEntry={onAddEntry} tags={data.tags} />
       <Overview data={data} />
       <Entries edit={props.edit} ledger={data.ledger} />
     </div>
