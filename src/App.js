@@ -12,6 +12,7 @@ import Reports from './components/Reports';
 const db = getLocalDBInstance();
 
 const App = () => {
+  const [data, setData] = useState({ ledger: [] });
   const [pass, setPass] = useState(db.getPassword());
   const [page, setPage] = useState(PAGES.HOME);
   const [editIndex, setEditIndex] = useState(0);
@@ -45,6 +46,14 @@ const App = () => {
     setPage(PAGES.HOME);
   };
 
+  const onAddEntry = () => {
+    setData(db.getData());
+  };
+
+  useEffect(() => {
+    setData(db.getData());
+  }, []);
+
   useEffect(() => {
     if (!pass) {
       setPage(PAGES.PASSWORD);
@@ -54,10 +63,10 @@ const App = () => {
   return (
     <div className="app">
       <Header pageconf={{ page, setPage }} />
-      {page === PAGES.HOME && <Home edit={onEdit} />}
+      {page === PAGES.HOME && <Home data={data} onAddEntry={onAddEntry} edit={onEdit} />}
       {page === PAGES.CONFIG && <Config reset={onReset} />}
       {page === PAGES.PASSWORD && <Password initApp={initApp} />}
-      {page === PAGES.EDIT && <EditEntry index={editIndex} done={onEditDone} />}
+      {page === PAGES.EDIT && <EditEntry tags={data.tags} index={editIndex} done={onEditDone} />}
       {page === PAGES.REPORTS && <Reports />}
       <footer>
         <p>

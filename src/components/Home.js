@@ -1,27 +1,13 @@
-import { useEffect, useState } from 'react';
 import AddEntry from './AddEntry';
 import Entries from './Entries';
 import Overview from './Overview';
-import { getLocalDBInstance } from '../Database';
-
-const db = getLocalDBInstance();
 
 const Home = (props) => {
-  const [data, setData] = useState({ ledger: [] });
-
-  const onAddEntry = () => {
-    setData(db.getData());
-  };
-
-  useEffect(() => {
-    setData(db.getData());
-  }, []);
-
   return (
     <div className="home">
-      <AddEntry onNewEntry={onAddEntry} tags={data.tags} />
-      <Overview data={data} />
-      <Entries edit={props.edit} ledger={data.ledger} />
+      <AddEntry onNewEntry={props.onAddEntry} tags={props.data.tags} />
+      <Overview data={props.data} />
+      <Entries edit={props.edit} ledger={props.data.ledger} />
     </div>
   );
 };
