@@ -37,7 +37,7 @@ const AddEntry = (props) => {
   };
 
   const addTag = (tag) => {
-    setTags([...tags, tag]);
+    setTags([...tags, tag.trim()]);
     setTag('');
   };
 
