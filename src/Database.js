@@ -114,24 +114,29 @@ const importData = async (importedData, mode = UPLOAD_MODE.REPLACE) => {
     throw Error('Invalid format, ledger missing or not array');
   }
 
-  for (let i = 0; i < data.ledger; i++) {
-    const o = data.ledger[i];
+  for (let i = 0; i < data.ledger.length; i++) {
+    if (typeof data.ledger[i].value !== 'number') {
+      let v = parseFloat(data.ledger[i].value);
+      if (v) {
+        data.ledger[i].value = v;
+      }
+    }
 
     if (
-      !o.item ||
-      !o.value ||
-      !o.type ||
-      typeof o.item !== 'string' ||
-      typeof o.value !== 'number' ||
-      typeof o.type !== 'number' ||
-      (o.tags && !Array.isArray(o.tags))
+      !data.ledger[i].item ||
+      !data.ledger[i].value ||
+      !data.ledger[i].type ||
+      typeof data.ledger[i].item !== 'string' ||
+      typeof data.ledger[i].value !== 'number' ||
+      typeof data.ledger[i].type !== 'number' ||
+      (data.ledger[i].tags && !Array.isArray(data.ledger[i].tags))
     ) {
       throw Error(`Invalid ledger entry at ${i}`);
     }
 
-    if (o.tags) {
-      for (let j = 0; j < o.tags.length; j++) {
-        if (typeof o.tags[j] !== 'string') {
+    if (data.ledger[i].tags) {
+      for (let j = 0; j < data.ledger[i].tags.length; j++) {
+        if (typeof data.ledger[i].tags[j] !== 'string') {
           throw Error(`Invalid ledger entry at ${i}`);
         }
       }
