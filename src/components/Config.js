@@ -6,6 +6,7 @@ import { formatDateFull } from '../utils';
 const db = getLocalDBInstance();
 
 const Config = (props) => {
+  const [v, setV] = useState(Math.random());
   const [file, setFile] = useState('');
   const [uploadMode, setUploadMode] = useState(UPLOAD_MODE.REPLACE);
   const [beginningBalance, setBeginningBalance] = useState(0);
@@ -51,6 +52,10 @@ const Config = (props) => {
         const data = JSON.parse(reader.result);
         await db.importData(data, uploadMode);
 
+        props.onConfigUpdate();
+        setFile('');
+        setV(Math.random());
+
         alert('Data imported successfully');
       } catch (error) {
         console.error(error);
@@ -63,12 +68,13 @@ const Config = (props) => {
 
   const updateBeginningBalance = () => {
     db.updateBeginningBalance(beginningBalance);
+    props.onConfigUpdate();
   };
 
   const handleReset = () => {
     if (window.confirm('Are you sure you want to reset?')) {
       db.reset();
-      props.reset();
+      props.onConfigUpdate(true);
     }
   };
 
@@ -77,7 +83,7 @@ const Config = (props) => {
   }, []);
 
   return (
-    <div className="config">
+    <div className="config" key={v}>
       <div className="row row-col">
         <div className="row">
           <h3>Upload Data</h3>
@@ -90,8 +96,8 @@ const Config = (props) => {
             value={uploadMode}
             onChange={(e) => setUploadMode(parseInt(e.target.value))}
           >
-            <option value={UPLOAD_MODE.REPLACE}>replace</option>
-            <option value={UPLOAD_MODE.UPDATE}>update</option>
+            <option value={UPLOAD_MODE.REPLACE}>replace data</option>
+            <option value={UPLOAD_MODE.APPEND}>append ledger</option>
           </select>
         </div>
         <div className="row">

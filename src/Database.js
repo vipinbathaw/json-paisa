@@ -145,7 +145,7 @@ const importData = async (importedData, mode = UPLOAD_MODE.REPLACE) => {
 
   if (mode === UPLOAD_MODE.REPLACE) {
     saveData(data);
-  } else if (mode === UPLOAD_MODE.UPDATE) {
+  } else if (mode === UPLOAD_MODE.APPEND) {
     updateLedger([...data.ledger, ...getLedger()]);
   }
 };

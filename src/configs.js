@@ -9,7 +9,7 @@ export const PAGES = {
 
 export const UPLOAD_MODE = {
   REPLACE: 1,
-  UPDATE: 2,
+  APPEND: 2,
 };
 
 export const TX_TYPE = {

@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
+import { PAGES } from './configs';
+import { getLocalDBInstance } from './Database';
+
 import Header from './components/Header';
 import Home from './components/Home';
-import './styles/app.css';
-import { PAGES } from './configs';
 import Config from './components/Config';
-import { getLocalDBInstance } from './Database';
 import Password from './components/Password';
 import EditEntry from './components/EditEntry';
 import Reports from './components/Reports';
+
+import './styles/app.css';
 
 const db = getLocalDBInstance();
 
@@ -24,7 +26,7 @@ const App = () => {
 
       setPass(password);
       setPage(PAGES.HOME);
-      setData(db.getData());
+      load();
     } catch (error) {
       console.error(error);
       alert(
@@ -33,8 +35,16 @@ const App = () => {
     }
   };
 
-  const onReset = () => {
-    setPass(null);
+  const load = () => {
+    setData(db.getData());
+  };
+
+  const onConfigUpdate = (reset = false) => {
+    if (reset) {
+      setPass(null);
+    } else {
+      load();
+    }
   };
 
   const onEdit = (index) => {
@@ -45,15 +55,15 @@ const App = () => {
   const onEditDone = () => {
     setEditIndex(0);
     setPage(PAGES.HOME);
-    setData(db.getData());
+    load();
   };
 
   const onAddEntry = () => {
-    setData(db.getData());
+    load();
   };
 
   useEffect(() => {
-    setData(db.getData());
+    load();
   }, []);
 
   useEffect(() => {
@@ -68,7 +78,7 @@ const App = () => {
       {page === PAGES.HOME && (
         <Home data={data} onAddEntry={onAddEntry} edit={onEdit} />
       )}
-      {page === PAGES.CONFIG && <Config reset={onReset} />}
+      {page === PAGES.CONFIG && <Config onConfigUpdate={onConfigUpdate} />}
       {page === PAGES.PASSWORD && <Password initApp={initApp} />}
       {page === PAGES.EDIT && (
         <EditEntry tags={data.tags} index={editIndex} done={onEditDone} />
