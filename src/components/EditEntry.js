@@ -17,7 +17,7 @@ const EditEntry = (props) => {
     e.preventDefault();
 
     db.editLedger(
-      { item, value, date, tags, type: parseInt(type) },
+      { item, date, tags, type: parseInt(type), value: parseFloat(value) },
       props.index
     );
 

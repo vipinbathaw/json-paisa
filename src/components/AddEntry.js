@@ -17,7 +17,7 @@ const AddEntry = (props) => {
   const handleForm = (e) => {
     e.preventDefault();
 
-    db.addToLedger(item, value, parseInt(type), date, tags);
+    db.addToLedger(item, parseFloat(value), parseInt(type), date, tags);
 
     if (props.onNewEntry) {
       props.onNewEntry();
