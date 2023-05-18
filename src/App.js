@@ -24,6 +24,7 @@ const App = () => {
 
       setPass(password);
       setPage(PAGES.HOME);
+      setData(db.getData());
     } catch (error) {
       console.error(error);
       alert(
@@ -44,6 +45,7 @@ const App = () => {
   const onEditDone = () => {
     setEditIndex(0);
     setPage(PAGES.HOME);
+    setData(db.getData());
   };
 
   const onAddEntry = () => {
