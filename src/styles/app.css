@@ -12,6 +12,10 @@ h2 {
   font-size: 1.25rem;
   margin: 0.5rem 0;
 }
+h4,
+h5 {
+  margin: 0;
+}
 
 img {
   min-height: 16px;
@@ -241,4 +245,27 @@ header .row .menu-item + .menu-item {
   background-color: #dfdfdf;
   border-radius: 15px;
   cursor: pointer;
+}
+
+.popular-tags {
+  margin-top: 1rem;
+  max-height: 250px;
+  overflow-y: auto;
+}
+.popular-tags .row {
+  padding: 0.5rem 0;
+}
+.popular-tags .row + .row {
+  margin-top: 0;
+  border-top: 1px solid #e1e1e1;
+}
+.popular-tags .row > div {
+  flex: 0.4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.popular-tags .row > div:first-child {
+  flex: 1;
+  justify-content: start;
 }

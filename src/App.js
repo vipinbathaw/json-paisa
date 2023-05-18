@@ -63,11 +63,15 @@ const App = () => {
   return (
     <div className="app">
       <Header pageconf={{ page, setPage }} />
-      {page === PAGES.HOME && <Home data={data} onAddEntry={onAddEntry} edit={onEdit} />}
+      {page === PAGES.HOME && (
+        <Home data={data} onAddEntry={onAddEntry} edit={onEdit} />
+      )}
       {page === PAGES.CONFIG && <Config reset={onReset} />}
       {page === PAGES.PASSWORD && <Password initApp={initApp} />}
-      {page === PAGES.EDIT && <EditEntry tags={data.tags} index={editIndex} done={onEditDone} />}
-      {page === PAGES.REPORTS && <Reports />}
+      {page === PAGES.EDIT && (
+        <EditEntry tags={data.tags} index={editIndex} done={onEditDone} />
+      )}
+      {page === PAGES.REPORTS && <Reports data={data} />}
       <footer>
         <p>
           Made with <span>&hearts;</span>
