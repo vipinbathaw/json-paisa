@@ -222,7 +222,7 @@ header .row svg {
   fill: #000;
 }
 header .row .menu-item + .menu-item {
-  margin-left: 0.5rem;
+  margin-left: 1rem;
 }
 
 .tag-suggestions {
@@ -247,25 +247,25 @@ header .row .menu-item + .menu-item {
   cursor: pointer;
 }
 
-.popular-tags {
-  margin-top: 1rem;
-  max-height: 250px;
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th {
+  background-color: #ccc;
+  padding: 0.5rem;
+  color: #444;
+  border: 1px solid #ddd;
+}
+
+table td {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.content-table {
+  max-height: 300px;
   overflow-y: auto;
-}
-.popular-tags .row {
-  padding: 0.5rem 0;
-}
-.popular-tags .row + .row {
-  margin-top: 0;
-  border-top: 1px solid #e1e1e1;
-}
-.popular-tags .row > div {
-  flex: 0.4;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.popular-tags .row > div:first-child {
-  flex: 1;
-  justify-content: start;
 }
